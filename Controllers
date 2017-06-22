@@ -1,0 +1,52 @@
+O controller deve fazer as operacoes que devem ser feitas;
+
+Criando um controller pelo cmd - php artisan
+`                                       comando      comando     nomecontroller
+C:\xampp\htdocs\laravel\laravelbasico>php artisan make:controller SiteController
+Controller created successfully.
+`
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Pagina SiteController
+
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class SiteController extends Controller
+{
+                    metodo
+    public function index()
+    {
+      return 'Home Page do Site';
+    }
+                     metodo
+    public function contato()
+    {
+      return 'Pg Contato';
+    }
+-------- usando parametros ------------------------------------
+                      metodo
+    public function categoria($id)
+    {
+      return "Listagem dos Posts da Categoria: {$id}";
+    }
+}
+
+
+
+========================================================================================================================================
+
+--------------- Aqui estao as rotas na pagina web.php ----------------------
+                                               metodo
+Route::get('/categoria/{id}', 'SiteController@categoria');
+
+                                       metodo
+Route::get('/contato', 'SiteController@contato');
+                                metodo
+Route::get('/', 'SiteController@index');
+
+----------------------------------------------------------------------------
