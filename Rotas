@@ -1,2 +1,126 @@
 O que sao rotas?
 Rotas sao criacoes de urls amigaveis no laravel.
+------------------------------------------------------------------------------------------------------------
+ex: tipos de rota (any, match, post, get)
+---------------------------------------------------------
+Route::any('/any', function() {
+  return 'Route any';
+});
+---------------------------------------------------------
+Route::match(['get', 'post'], '/match', function() {
+  return 'Route match';
+});
+---------------------------------------------------------
+Route::post('/post', function() {
+  return 'Route Post';
+});
+---------------------------------------------------------
+Route::get('/contato', function() {
+  return 'Contato';
+});
+---------------------------------------------------------
+Route::get('/empresa', function() {
+  return view('empresa');
+});
+
+============================================================================================================
+Nomeando a rota e buscando-a pelo nome
+
+Route::get('/nome/nome2/nome990', function() {
+  return 'Rota Grande';
+})->name('rota.nomeada');
+
+Route::get('/', function () {
+    return redirect()->route('rota.nomeada');
+});
+
+========================================================================================================================================
+
+Utilizando id's 
+
+ex: com passagens de parametros;
+
+Route::get('/categoria/{idCat}', function($idCat) {
+  return "Posts da Categoria {$idCat}";
+});
+---------------------------------------------------------------------------------
+ex2:
+Route::get('/categoria/{idCat}/{prm2}', function($idCat, $prm2) {
+  return "Posts da Categoria {$idCat} - {$prm2}";
+});
+---------------------------------------------------------------------------------
+
+Nos casos acima, os parametros sao obrigatorios, se nao forem colocados darao erro.
+
+entao para deixar os parametros opcionais :
+
+Route::get('/categoria2/{idCat?}', function($idCat='') {
+  return "Posts da Categoria {$idCat}";
+});
+
+o resultado sera:
+"Posts da Categoria" porque foi definido o valor vazio para o = ($idCat='')
+
+---------------------------------------------------------------------------------------------------
+
+Mas podemos definir para que ele comece ja em alguma categoria exemplo na categoria 1:
+
+Route::get('/categoria2/{idCat?}', function($idCat=1) {
+  return "Posts da Categoria {$idCat}";
+});
+
+========================================================================================================================================
+
+Utilizando Grupo de Rotas;
+
+Route::group([], function() {
+  Route::get('grupo1', function() {
+    return 'Grupo 1';
+  });
+
+  Route::get('grupo2', function() {
+    return 'Grupo 2';
+  });
+
+  Route::get('grupo3', function() {
+    return 'Grupo 3';
+  });
+});
+-----------------------------------------------------------------------------------------------------------
+
+Grupo de rotas usando o prefixo painel para facilitar;
+
+/* GRUPOS DE ROTAS */
+
+Route::group(['prefix' => 'painel'], function() {
+  Route::get('/users', function() {
+    return 'Controle de users';
+  });
+
+  Route::get('/financeiro', function() {
+    return 'Financeiro Painel';
+  });
+
+  Route::get('/', function() {
+    return 'Dashboard';
+  });
+});
+
+-----------------------------------------------------------------------------------------------------------
+
+ para que somemente pessoal logado, autenticado consiga acessar /painel;
+ 
+ /* GRUPOS DE ROTAS */
+Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function() {
+});
+
+-----------------------------------------------------------------------------------------------------------
+Login
+
+Route::get('/login', function() {
+  return '#form login';
+});
+
+
+
+
