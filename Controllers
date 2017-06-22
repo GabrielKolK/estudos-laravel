@@ -27,26 +27,42 @@ class SiteController extends Controller
     public function contato()
     {
       return 'Pg Contato';
-    }
--------- usando parametros ------------------------------------
+    } 
+}
+--------------- Aqui estao as rotas na pagina web.php ----------------------
+                                       metodo
+  Route::get('/contato', 'SiteController@contato');
+                                metodo
+  Route::get('/', 'SiteController@index');
+  
+========================================================================================================================================
+SiteController
+------------- usando parametros fixos, dando erro se n defini-lo----------------------------
+{
                       metodo
     public function categoria($id)
     {
       return "Listagem dos Posts da Categoria: {$id}";
     }
 }
-
-
-
-========================================================================================================================================
-
 --------------- Aqui estao as rotas na pagina web.php ----------------------
                                                metodo
 Route::get('/categoria/{id}', 'SiteController@categoria');
 
-                                       metodo
-Route::get('/contato', 'SiteController@contato');
-                                metodo
-Route::get('/', 'SiteController@index');
 
-----------------------------------------------------------------------------
+========================================================================================================================================
+  SiteController
+------------- usando parametros onde se n defini-lo ele automaticamente comecara com o valor de =1----------------------------
+{
+  public function categoriaOp($id = 1)
+      {
+        return "Listagem dos Posts da Categoria: {$id}";
+      }
+}
+
+--------------- Aqui estao as rotas na pagina web.php ----------------------
+
+Route::get('/categoria2/{id?}', 'SiteController@categoriaOp');
+
+
+
