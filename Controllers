@@ -64,5 +64,39 @@ Route::get('/categoria/{id}', 'SiteController@categoria');
 
 Route::get('/categoria2/{id?}', 'SiteController@categoriaOp');
 
+========================================================================================================================================
+
+Criei 2 novas pastas dentro da pasta Controllers. A pasta Site e a pasta Painel.
+Passei as rotas para a pasta Site entao tive que alterar o caminho delas e colocar um namespace.
+-------------------------------------------------------------------------------
+
+Route::group(['namespace' => 'Site'], function(){
+  Route::get('/categoria/{id}', 'SiteController@categoria');
+  Route::get('/categoria2/{id?}', 'SiteController@categoriaOp');
+
+  Route::get('/contato', 'SiteController@contato');
+  Route::get('/', 'SiteController@index');
+});
+
+-------------------------------------------------------------------------------
+e na pagina SiteController que agora esta dentro da pasta Site alterei os dados:
+
+-------------------------------------------
+
+namespace App\Http\Controllers\Site;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+========================================================================================================================================
+
+Para criar um controller dentro de uma pasta especifica ja. 
+No cmd:
+
+                                         comando      comando      local    NomeController
+C:\xampp\htdocs\laravel\laravelbasico> php artisan make:controller Painel\\PainelController
+Controller created successfully.
+
+
 
 
